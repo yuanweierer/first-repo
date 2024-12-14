@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.jason.didiserver.mapper.PathMapper">
+    <select id="findPathBySearch" resultType="com.jason.didiserver.pojo.PathInfo">
+        select
+            user.id as id,
+            nickname,
+            phone,
+            abs(pstart.carriage-pend.carriage) as price
+        from
+            path as pstart
+        inner join
+            path as pend
+            on pstart.user_id = pend.user_id
+            and pstart.location = #{start}
+            and pend.location = #{end}
+        inner join
+            user
+            on user.id = pstart.user_id
+    </select>
+</mapper>
